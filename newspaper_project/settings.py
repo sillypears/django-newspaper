@@ -11,10 +11,11 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 """
 
 import os
+from configparser import ConfigParser
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-
+ENV_FILE = os.path.abspath('environment.ini')
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.1/howto/deployment/checklist/
@@ -122,8 +123,19 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+conf = ConfigParser()
+conf.read(ENV_FILE)
+
 AUTH_USER_MODEL = 'users.CustomUser'
 LOGIN_REDIRECT_URL = 'home'
 LOGOUT_REDIRECT_URL = 'home'
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+# Used config parser so I could push to github without actual creds ;)
+
+EMAIL_HOST = conf.get('general', 'EMAIL_SERVER')
+EMAIL_HOST_USER = conf.get('general', 'EMAIL_USER')
+EMAIL_HOST_PASSWORD = conf.get('general', 'EMAIL_PASSWORD')
+EMAIL_PORT = conf.get('general', 'EMAIL_PORT')
+EMAIL_USE_TLS = conf.get('general', 'EMAIL_USE_TLS')
+print(EMAIL_HOST, EMAIL_HOST_USER, EMAIL_HOST_PASSWORD, EMAIL_PORT, EMAIL_USE_TLS)
