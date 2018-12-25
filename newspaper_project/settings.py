@@ -34,7 +34,10 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     'users.apps.UsersConfig',
     'pages.apps.PagesConfig',
+    'articles.apps.ArticlesConfig',
+
     'crispy_forms',  # 3rd party
+
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -109,7 +112,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'America/New_York'
 
 USE_I18N = True
 
@@ -138,4 +141,3 @@ EMAIL_HOST_USER = conf.get('general', 'EMAIL_USER')
 EMAIL_HOST_PASSWORD = conf.get('general', 'EMAIL_PASSWORD')
 EMAIL_PORT = conf.get('general', 'EMAIL_PORT')
 EMAIL_USE_TLS = conf.get('general', 'EMAIL_USE_TLS')
-print(EMAIL_HOST, EMAIL_HOST_USER, EMAIL_HOST_PASSWORD, EMAIL_PORT, EMAIL_USE_TLS)
